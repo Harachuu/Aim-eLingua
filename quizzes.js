@@ -26,6 +26,22 @@ const GRAMMAR_EXTRA={
  ],
  g4:[
  ['Select the correct basic word order.','Je parle français.',['Parle je français.','Français je parle.','Je français parle.'],'French commonly uses subject–verb–complement.'],['Choose the negative of “Je parle français.”','Je ne parle pas français.',['Je pas parle français.','Je ne pas parle français.','Ne je parle français.'],'Place ne before the verb and pas after it.'],['Choose the negative of “Il est étudiant.”','Il n’est pas étudiant.',['Il ne est pas étudiant.','Il est ne pas étudiant.','Il pas est étudiant.'],'Ne contracts to n’ before est.'],['Which word follows the verb in basic ne…pas negation?','pas',['ne','je','il'],'Pas goes after the conjugated verb.'],['Which word usually comes before the verb in basic negation?','ne',['pas','tu','nous'],'Ne goes before the conjugated verb.'],['Which phrase shows “I am not”?','je ne suis pas',['je suis ne pas','je pas suis','je suis pas ne'],'Ne…pas surrounds suis.'],['Complete “Nous ___ sommes pas.”','ne',['pas','n’','non'],'Use ne before sommes because it starts with a consonant.'],['Complete “Il ___ est pas étudiant.”','n’',['ne','pas','tu'],'Use n’ immediately before est.'],['Choose the correct sentence.','Tu parles français.',['Tu français parles.','Parles tu français.','Français tu parles.'],'The basic order is subject followed by verb.'],['Choose the correct negative sentence.','Il ne parle pas.',['Il parle ne pas.','Il pas parle ne.','Ne il parle pas.'],'Ne goes before parle and pas after it.'],['Choose the correct negative sentence.','Nous ne sommes pas ici.',['Nous pas sommes ici.','Nous sommes ne pas ici.','Nous n’ sommes pas ici.'],'Nous ne sommes pas has correct negative word order.'],['Choose the correct expression for “He is not.”','Il n’est pas.',['Il ne est pas.','Il est ne pas.','Il pas est.'],'Ne becomes n’ before est.']
+ ],
+ g5:[
+ ['Complete “Je ___ français.”','parle',['parles','parlons','parlez'],'Je takes -e with a regular -er verb.'],
+ ['Complete “Tu ___ français.”','parles',['parle','parlons','parlez'],'Tu takes -es.'],
+ ['Complete “Il ___ français.”','parle',['parles','parlent','parlez'],'Il takes -e.'],
+ ['Complete “Nous ___ français.”','parlons',['parle','parles','parlez'],'Nous takes -ons.'],
+ ['Complete “Vous ___ français.”','parlez',['parle','parlons','parlent'],'Vous takes -ez.'],
+ ['Complete “Ils ___ français.”','parlent',['parle','parlons','parlez'],'Ils takes -ent.'],
+ ['Complete “Elle ___ le soir.” (étudier)','étudie',['étudies','étudions','étudiez'],'Elle takes -e: elle étudie.'],
+ ['Complete “Nous ___ le soir.” (étudier)','étudions',['étudie','étudies','étudiez'],'Nous takes -ons: nous étudions.'],
+ ['Complete “Je ___ le matin.” (travailler)','travaille',['travailles','travaillons','travaillez'],'Je takes -e: je travaille.'],
+ ['Complete “Tu ___ le matin.” (travailler)','travailles',['travaille','travaillons','travaillez'],'Tu takes -es: tu travailles.'],
+ ['Choose “You (formal) speak French.”','Vous parlez français.',['Vous parlons français.','Vous parles français.','Vous parlent français.'],'Vous uses -ez with regular -er verbs.'],
+ ['Choose “They speak French.”','Ils parlent français.',['Ils parle français.','Ils parlons français.','Ils parlez français.'],'Ils uses -ent with regular -er verbs.'],
+ ['Choose “We work in the morning.”','Nous travaillons le matin.',['Nous travaille le matin.','Nous travaillez le matin.','Nous travaillent le matin.'],'Nous takes the -ons ending with travailler.'],
+ ['Which ending completes a regular -er verb with vous?','-ez',['-ons','-ent','-es'],'Vous takes -ez.']
  ]
 };
 const CONTEXTS={
@@ -64,6 +80,15 @@ function grammarDistractors(l,answer){
  if(l.id==='g3'){
   const m=answer.match(/^(j’|tu |il |elle |nous |vous |ils |elles )(ai|as|a|avons|avez|ont)(.*)$/iu);
   if(m)return shuffled(['ai','as','a','avons','avez','ont'].filter(v=>v!==m[2])).slice(0,3).map(v=>m[1]+v+m[3]);
+ }
+ if(l.id==='g5'){
+  const forms={
+   parle:['parles','parlons','parlez','parlent'],parles:['parle','parlons','parlez','parlent'],parlons:['parle','parles','parlez','parlent'],parlez:['parle','parles','parlons','parlent'],parlent:['parle','parles','parlons','parlez'],
+   étudie:['étudies','étudions','étudiez','étudient'],étudies:['étudie','étudions','étudiez','étudient'],étudions:['étudie','étudies','étudiez','étudient'],
+   travaille:['travailles','travaillons','travaillez','travaillent'],travaillons:['travaille','travailles','travaillez','travaillent']
+  };
+  const match=answer.match(/^(je |j’|tu |il |elle |nous |vous |ils |elles )(.+)$/iu);
+  if(match&&forms[match[2]])return forms[match[2]].slice(0,3).map(f=>match[1]+f);
  }
  return null;
 }
