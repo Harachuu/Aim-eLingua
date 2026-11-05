@@ -2,7 +2,7 @@ const STORAGE={progress:'aimeelingua_progress_v1',settings:'aimeelingua_settings
 function readStore(key,fallback){try{const value=JSON.parse(localStorage.getItem(key));return value&&typeof value==='object'?value:fallback}catch{return fallback}}
 const INITIAL_PROGRESS=()=>({lessons:{},lastLesson:null,onboarded:false});
 let progress=readStore(STORAGE.progress,INITIAL_PROGRESS());
-let settings=readStore(STORAGE.settings,{theme:'cafe',accent:'#a63b62',background:'#fbf7f1'});
+let settings=readStore(STORAGE.settings,{theme:'cafe',accent:'#a63b62',background:'#fbf7f1',textSize:'default',showTranslations:true});
 let placementHistory=readStore(STORAGE.placement,{attempts:[]});
 function saveProgress(){try{localStorage.setItem(STORAGE.progress,JSON.stringify(progress))}catch(e){console.warn('Progress could not be saved',e)}}
 function saveSettings(){try{localStorage.setItem(STORAGE.settings,JSON.stringify(settings))}catch(e){console.warn('Settings could not be saved',e)}}
@@ -14,5 +14,5 @@ function lessonStats(track){const lessons=track?getTrack(track):LESSONS;const do
 function recordQuiz(id,score){const r={...recordFor(id)};r.attempts++;r.last=score;r.best=Math.max(r.best??0,score);if(score>=70){r.completed=true;if(!r.method)r.method='test'}progress.lessons[id]=r;saveProgress()}
 function creditPlacement(ids){for(const id of ids){const r={...recordFor(id)};if(!r.completed){r.completed=true;r.method='placement'}progress.lessons[id]=r}saveProgress()}
 function nextLesson(track){return getTrack(track).find(l=>isUnlocked(l.id)&&!isComplete(l.id))||null}
-function applyTheme(){document.documentElement.dataset.theme=settings.theme;if(settings.theme==='custom'){document.documentElement.style.setProperty('--accent',settings.accent);document.documentElement.style.setProperty('--bg',settings.background);document.documentElement.style.setProperty('--accent2','#f3e1e9')}else{['--accent','--bg','--accent2'].forEach(v=>document.documentElement.style.removeProperty(v))}}
+function applyTheme(){document.documentElement.dataset.theme=settings.theme;document.documentElement.dataset.textSize=['small','default','large'].includes(settings.textSize)?settings.textSize:'default';if(settings.theme==='custom'){document.documentElement.style.setProperty('--accent',settings.accent);document.documentElement.style.setProperty('--bg',settings.background);document.documentElement.style.setProperty('--accent2','#f3e1e9')}else{['--accent','--bg','--accent2'].forEach(v=>document.documentElement.style.removeProperty(v))}}
 applyTheme();
