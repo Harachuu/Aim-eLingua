@@ -1,0 +1,17 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');const ctx={console,Math,Date,localStorage:{getItem(){return null},setItem(){}},document:{documentElement:{dataset:{},style:{setProperty(){},removeProperty(){}}},getElementById(){return {innerHTML:''}}},window:{scrollTo(){} }};vm.createContext(ctx);for(const f of ['lessons.js','storage.js','quizzes.js','activities.js','placement.js','app.js'])vm.runInContext(fs.readFileSync(__dirname+'/'+f,'utf8'),ctx,{filename:f});
+const run=code=>vm.runInContext(code,ctx);
+assert.equal(run('LESSONS.length'),16);assert.equal(run('getTrack("vocabulary").length'),12);assert.equal(run('getTrack("grammar").length'),4);
+assert.equal(run('LESSONS.every(l=>QUESTION_BANKS[l.id].length>=20)'),true);
+assert.equal(run('LESSONS.every(l=>makeQuiz(l.id).length===10)'),true);
+assert.equal(run('isUnlocked("v1") && isUnlocked("g1") && !isUnlocked("v2")'),true);
+run('recordQuiz("v1",60)');assert.equal(run('isUnlocked("v2")'),false);
+run('recordQuiz("v1",70)');assert.equal(run('isUnlocked("v2") && isComplete("v1")'),true);
+run('recordQuiz("v1",20)');assert.equal(run('isComplete("v1") && recordFor("v1").best===70'),true);
+run('creditPlacement(["g1","g2"])');assert.equal(run('isUnlocked("g3") && !isComplete("g3")'),true);
+run('startQuiz("v1")');assert.equal(run('ui.quiz.length'),10);
+run('quizSelect(ui.quiz[0].options[0])');run('quizNext()');assert.equal(run('ui.quizIndex'),1);
+run('openLesson("g2")');assert.equal(run('ui.page'), 'lesson');
+assert.equal(run('activitiesFor(getLesson("g4")).some(a=>a.type==="transform")'),true);
+assert.equal(run('activitiesFor(getLesson("g2")).some(a=>a.type==="fix")'),true);
+let place=run('placementStart()');assert.equal(place.track,'vocabulary');assert.equal(place.questions.length,5);
+console.log('PASS: 16 lessons, 20+ questions each, 10-question quiz selection, passing threshold, monotonic progress, independent tracks, quiz navigation, grammar activities, placement batch.');

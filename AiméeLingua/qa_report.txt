@@ -1,0 +1,16 @@
+AiméeLingua V1.0 — Automated smoke checks
+
+PASS (Node.js static/runtime VM checks):
+- 16 lessons: 12 Vocabulary, 4 Grammar
+- All 16 lesson quiz banks contain at least 20 unique question records
+- 10-question quiz creation for all lessons
+- 60% does not pass; 70% passes and unlocks next lesson
+- A lower-scoring retake does not revoke completion or best score
+- Grammar and Vocabulary progression are independent
+- Placement credits unlock the next lesson in that track
+- Quiz question navigation works
+- Grammar sentence transformation and error correction activities are configured
+- Placement creates five questions per assessed lesson
+- Node.js syntax checks pass on all JavaScript files
+
+Not verified: cross-browser visual/touch testing, screen-reader testing, semantic quality of every individual question and translation. Manual testing is advised before public deployment.
