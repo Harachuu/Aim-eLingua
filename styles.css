@@ -41,3 +41,43 @@ html[data-text-size="large"]{font-size:18px}
 .reading-toggle span{display:flex;flex-direction:column;gap:2px}
 .reading-toggle small{color:var(--muted);font-size:.85rem}
 .reading-toggle input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Learn · Connect · Apply */
+.connections-library{margin-top:24px}
+.connection-featured{background:var(--paper);border-color:var(--accent)}
+.connection-card{display:flex;flex-direction:column;gap:10px;min-width:0}
+.connection-card .btn{align-self:flex-start;margin-top:auto}
+.connection-title{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.connection-title h2,.connection-title h3{margin-bottom:0}
+.connection-subtitle{font-size:.83rem}
+.connection-stages{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:.8rem;color:var(--muted)}
+.connection-lesson-list{display:grid;gap:10px;margin:15px 0}
+.connection-lesson{display:flex;align-items:center;gap:13px;background:var(--soft);border-radius:12px;padding:12px}
+.connection-lesson>div{flex:1;min-width:0}
+.connection-lesson .muted{font-size:.83rem}
+.connection-check{width:27px;height:27px;display:grid;place-items:center;flex:none;color:var(--accent);font-weight:800}
+.connection-related{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--soft);border-radius:12px;padding:14px;margin-top:12px}
+.connection-related .muted{font-size:.82rem}
+.connection-detail{margin-top:20px}
+.connection-apply{border-top:1px solid var(--border);padding-top:20px;margin-top:22px}
+.conversation-panel{margin-top:18px}
+.conversation-panel .connection-title h2{font-size:clamp(1.5rem,3vw,2rem)}
+.conversation-bars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:14px 0 20px}
+.conversation-bars span{height:6px;border-radius:20px;background:var(--border)}
+.conversation-bars .current{background:var(--accent)}
+.conversation-bubble{background:var(--soft);padding:16px 19px;border-radius:16px;margin:12px 0}
+.conversation-bubble strong{font-size:1.04rem}
+.conversation-bubble .english{color:var(--muted);font-size:.87rem;margin-top:4px}
+.conversation-speaker{font-weight:800;font-size:.7rem;letter-spacing:.1em;color:var(--muted);margin-bottom:5px}
+.conversation-you{background:var(--accent2);margin-left:12%;text-align:right}
+.conversation-instruction{font-family:'DM Sans',system-ui,sans-serif;font-size:1rem;margin-top:24px}
+.conversation-options{display:grid;gap:10px;margin-bottom:17px}
+.conversation-options .option{text-align:left}
+.conversation-feedback{padding:13px 16px;border-radius:12px;margin:14px 0;background:var(--soft)}
+.conversation-feedback.correct{border-left:3px solid var(--green)}
+.conversation-feedback.incorrect{border-left:3px solid var(--red)}
+.conversation-feedback p{margin:5px 0 0;font-size:.88rem}
+.immersion-reminder{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;background:var(--accent2);padding:13px 15px;border-radius:13px;margin:14px 0;font-size:.87rem}
+.immersion-reminder p{margin:3px 0 0;color:var(--muted)}
+.connection-finished{margin-top:20px}
+@media(max-width:650px){.connection-related,.connection-lesson{flex-wrap:wrap}.connection-lesson>div{flex-basis:60%}.immersion-reminder{flex-direction:column}.connection-card .btn{width:100%}}
