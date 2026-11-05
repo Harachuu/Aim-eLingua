@@ -24,10 +24,24 @@ function connectionReady(path){return isComplete(path.vocab)&&isComplete(path.gr
 function recommendedConnection(){return CONNECTION_PATHS.find(p=>!connectionRecord(p.id).completed&&(isComplete(p.vocab)||isComplete(p.grammar)))||CONNECTION_PATHS.find(p=>!connectionRecord(p.id).completed)||CONNECTION_PATHS[0]}
 function connectionProgress(path){return Number(isComplete(path.vocab))+Number(isComplete(path.grammar))+Number(connectionRecord(path.id).completed)}
 function connectionLessonLink(id,label){const l=getLesson(id),done=isComplete(id),unlocked=isUnlocked(id);return '<div class="connection-lesson"><span class="connection-check">'+(done?'✓':unlocked?'○':'🔒')+'</span><div><strong>'+safe(l.title)+'</strong><div class="muted">'+label+' · '+(done?'Completed':unlocked?'Available':'Locked in '+l.track)+'</div></div><button class="btn secondary small" '+(unlocked?'onclick="openLesson(\''+id+'\')"':'disabled')+'>'+(done?'Review':'Open')+'</button></div>'}
-function connectionCard(path,featured){const n=connectionProgress(path),done=connectionRecord(path.id).completed;
- return '<article class="card connection-card '+(featured?'connection-featured':'')+'"><div class="eyebrow">'+(featured?'RECOMMENDED FOR YOU':'LEARNING CONNECTION')+'</div><div class="connection-title"><h3>'+safe(path.title)+'</h3><span class="pill">'+(done?'✓ Applied':n+' of 3 steps')+'</span></div><p class="muted">'+safe(path.description)+'</p>'+percentBar(Math.round(n/3*100))+(featured?'<div class="connection-stages"><span>01 · Learn</span><span>02 · Connect</span><span>03 · Apply</span></div><div class="connection-lesson-list">'+connectionLessonLink(path.vocab,'Vocabulary')+connectionLessonLink(path.grammar,'Grammar')+'</div>':'<p class="muted connection-subtitle">Vocabulary: '+safe(getLesson(path.vocab).title)+' · Grammar: '+safe(getLesson(path.grammar).title)+'</p>')+'<button class="btn '+(featured?'':'secondary')+'" onclick="openConnection(\''+path.id+'\')">'+(done?'Review conversation →':connectionReady(path)?'Start conversation →':'Explore learning path →')+'</button></article>'
+function connectionCard(path,index,recommendedId){
+ const completed=connectionRecord(path.id).completed,ready=connectionReady(path),recommended=path.id===recommendedId;
+ const state=completed?'✓ Completed':ready?'Ready to apply':'In progress';
+ const statusClass=completed?'ok':'';
+ return '<article class="card lesson-card connection-lesson-card">'+
+ '<div class="emoji" aria-hidden="true">'+(path.id==='meeting'?'👋':path.id==='age'?'🙋':'📚')+'</div>'+
+ '<div class="step">PATH '+(index+1)+' · A1'+(recommended?' <span class="connection-recommended">✦ Recommended</span>':'')+'</div>'+
+ '<h3>'+safe(path.title)+'</h3>'+
+ '<p class="muted" style="font-size:.83rem">'+safe(path.description)+'</p>'+
+ '<p class="muted connection-lesson-pair">'+safe(getLesson(path.vocab).title)+' + '+safe(getLesson(path.grammar).title)+'</p>'+
+ '<div class="bottom"><span class="pill '+statusClass+'">'+state+'</span><button class="btn small '+(completed?'secondary':'')+'" onclick="openConnection(\''+path.id+'\')">'+(completed?'Review':ready?'Apply →':'Explore →')+'</button></div>'+
+ '</article>'
 }
-function connectionsPage(){const recommended=recommendedConnection();return '<section class="connections-library"><div class="section-head"><div><h2>Learn. Connect. Apply.</h2><p class="muted">Build real French skills by bringing vocabulary and grammar together.</p></div></div>'+connectionCard(recommended,true)+'<div class="section-head"><h2>Other learning paths</h2></div><div class="grid two">'+CONNECTION_PATHS.filter(p=>p.id!==recommended.id).map(p=>connectionCard(p,false)).join('')+'</div></section>'}
+function connectionsPage(){
+ const recommended=recommendedConnection();
+ const applied=CONNECTION_PATHS.filter(p=>connectionRecord(p.id).completed).length;
+ return '<section class="connections-library"><div class="section-head"><div><h2>Learning connections</h2><p class="muted">Learn. Connect. Apply. Combine vocabulary and grammar in everyday conversations.</p></div><span class="pill">'+applied+' of '+CONNECTION_PATHS.length+' completed</span></div><div class="grid">'+CONNECTION_PATHS.map((p,i)=>connectionCard(p,i,recommended.id)).join('')+'</div></section>'
+}
 function relatedConnectionHTML(lesson){const paths=CONNECTION_PATHS.filter(p=>p.vocab===lesson.id||p.grammar===lesson.id);if(!paths.length)return '';return '<section class="card"><div class="eyebrow">LEARNING CONNECTION</div><h3>See how it all comes together</h3><p class="muted">Link this lesson with another skill, then apply both in a conversation.</p>'+paths.map(p=>{const other=getLesson(p.vocab===lesson.id?p.grammar:p.vocab);return '<div class="connection-related"><div><strong>'+safe(p.title)+'</strong><div class="muted">Related '+other.track+': '+safe(other.title)+'</div></div><button class="btn secondary small" onclick="openConnection(\''+p.id+'\')">Explore →</button></div>'}).join('')+'</section>'}
 function openConnection(id){const p=CONNECTION_PATHS.find(x=>x.id===id);if(!p)return;ui.connectionId=id;ui.connectionIndex=0;ui.connectionSelection=null;ui.connectionChecked=false;ui.page='connection';window.scrollTo(0,0);render()}
 function connectionDetailPage(){const p=CONNECTION_PATHS.find(x=>x.id===ui.connectionId);if(!p)return connectionsPage();const ready=connectionReady(p),done=connectionRecord(p.id).completed;
