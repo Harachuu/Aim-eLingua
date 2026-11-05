@@ -31,8 +31,33 @@ const CONTEXTS={
  v11:[['You ask “How much does it cost?”','combien ça coûte ?'],['You say “I’ll take it.”','je prends'],['You want to pay using a card.','la carte'],['You want to pay in cash.','en espèces'],['You say “inexpensive.”','bon marché'],['You ask about a size.','la taille'],['You want to buy something.','acheter'],['You refer to the price.','le prix']],
  v12:[['You ask “How are you?”','comment ça va ?'],['You respond “I’m doing well.”','ça va bien'],['You politely ask “And you?”','et vous ?'],['You say “I don’t understand.”','je ne comprends pas'],['You ask someone formally to repeat.','pouvez-vous répéter ?'],['You say “No problem.”','pas de problème'],['You say “Of course.”','bien sûr'],['You are looking for a place or item.','je cherche']]
 };
+/* Tests the grammar rather than allowing elimination by unrelated vocabulary. */
+function grammarDistractors(l,answer){
+ if(l.id==='g1'){
+  const match=answer.match(/^(?:(un|une|le|la|les)\s+|((?:l’|l')))(.+)$/iu);
+  if(match){
+   const article=match[1]||match[2],noun=match[3];
+   let alternatives;
+   if(article==='les')alternatives=['le '+noun,'la '+noun,'un '+noun];
+   else if(article==='l’'||article==="l'")alternatives=['le '+noun,'la '+noun,'une '+noun];
+   else alternatives=['un '+noun,'une '+noun,'le '+noun,'la '+noun].filter(v=>v!==answer);
+   return alternatives.slice(0,3);
+  }
+ }
+ if(l.id==='g2'){
+  const parts=answer.split(' ');
+  if(parts.length===2 && ['suis','es','est','sommes','êtes','sont'].includes(parts[1]))
+   return shuffled(['suis','es','est','sommes','êtes','sont'].filter(v=>v!==parts[1])).slice(0,3).map(v=>parts[0]+' '+v);
+  if(parts.length===1)return shuffled(['je','tu','il','elle','nous','vous','ils','elles'].filter(v=>v!==answer)).slice(0,3);
+ }
+ if(l.id==='g3'){
+  const m=answer.match(/^(j’|tu |il |elle |nous |vous |ils |elles )(ai|as|a|avons|avez|ont)(.*)$/iu);
+  if(m)return shuffled(['ai','as','a','avons','avez','ont'].filter(v=>v!==m[2])).slice(0,3).map(v=>m[1]+v+m[3]);
+ }
+ return null;
+}
 function bankFor(l){const pool=l.words.map(w=>w.fr);let qs=[];
- l.words.forEach((w,i)=>qs.push(mk(l.id+'-w'+i,'Choose the French expression for “'+w.en+'”.',w.fr,chooseDistractors(w.fr,pool),`“${w.fr}” means “${w.en}”.`,'choice','vocabulary')));
+ l.words.forEach((w,i)=>qs.push(mk(l.id+'-w'+i,'Choose the French expression for “'+w.en+'”.',w.fr,grammarDistractors(l,w.fr)||chooseDistractors(w.fr,pool),`“${w.fr}” means “${w.en}”.`,'choice',l.track==='grammar'?'grammar':'vocabulary')));
  if(l.track==='vocabulary'){
   (CONTEXTS[l.id]||[]).forEach(([p,a],i)=>qs.push(mk(l.id+'-c'+i,p,a,chooseDistractors(a,pool),`In this context, “${a}” is appropriate.`, 'choice','context')));
  }else{
@@ -41,4 +66,6 @@ function bankFor(l){const pool=l.words.map(w=>w.fr);let qs=[];
  return qs;
 }
 const QUESTION_BANKS=Object.fromEntries(LESSONS.map(l=>[l.id,bankFor(l)]));
+function makeQuiz(id){const all=QUESTION_BANKS[id];if(!all||all.length<10)throw Error('Missing question bank '+id);const context=all.filter(q=>q.objective!=='vocabulary');const core=all.filter(q=>q.objective==='vocabulary');let selected=shuffled(context).slice(0,Math.min(6,context.length));selected.push(...shuffled(core).slice(0,10-selected.length));if(selected.length<10)selected.push(...shuffled(all.filter(q=>!selected.includes(q))).slice(0,10-selected.length));selected=shuffled(selected);return selected.map(q=>({...q,options:shuffled(q.choices)}))}
+UESTION_BANKS=Object.fromEntries(LESSONS.map(l=>[l.id,bankFor(l)]));
 function makeQuiz(id){const all=QUESTION_BANKS[id];if(!all||all.length<10)throw Error('Missing question bank '+id);const context=all.filter(q=>q.objective!=='vocabulary');const core=all.filter(q=>q.objective==='vocabulary');let selected=shuffled(context).slice(0,Math.min(6,context.length));selected.push(...shuffled(core).slice(0,10-selected.length));if(selected.length<10)selected.push(...shuffled(all.filter(q=>!selected.includes(q))).slice(0,10-selected.length));selected=shuffled(selected);return selected.map(q=>({...q,options:shuffled(q.choices)}))}
