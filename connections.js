@@ -25,12 +25,12 @@ function recommendedConnection(){return CONNECTION_PATHS.find(p=>!connectionReco
 function connectionProgress(path){return Number(isComplete(path.vocab))+Number(isComplete(path.grammar))+Number(connectionRecord(path.id).completed)}
 function connectionLessonLink(id,label){const l=getLesson(id),done=isComplete(id),unlocked=isUnlocked(id);return '<div class="connection-lesson"><span class="connection-check">'+(done?'✓':unlocked?'○':'🔒')+'</span><div><strong>'+safe(l.title)+'</strong><div class="muted">'+label+' · '+(done?'Completed':unlocked?'Available':'Locked in '+l.track)+'</div></div><button class="btn secondary small" '+(unlocked?'onclick="openLesson(\''+id+'\')"':'disabled')+'>'+(done?'Review':'Open')+'</button></div>'}
 function connectionCard(path,index,recommendedId){
- const completed=connectionRecord(path.id).completed,ready=connectionReady(path),recommended=path.id===recommendedId;
+ const completed=connectionRecord(path.id).completed,ready=connectionReady(path);
  const state=completed?'✓ Completed':ready?'Ready to apply':'In progress';
  const statusClass=completed?'ok':'';
  return '<article class="card lesson-card connection-lesson-card">'+
  '<div class="emoji" aria-hidden="true">'+(path.id==='meeting'?'👋':path.id==='age'?'🙋':'📚')+'</div>'+
- '<div class="step">PATH '+(index+1)+' · A1'+(recommended?' <span class="connection-recommended">✦ Recommended</span>':'')+'</div>'+
+ '<div class="step">PATH '+(index+1)+' · A1</div>'+
  '<h3>'+safe(path.title)+'</h3>'+
  '<p class="muted" style="font-size:.83rem">'+safe(path.description)+'</p>'+
  '<p class="muted connection-lesson-pair">'+safe(getLesson(path.vocab).title)+' + '+safe(getLesson(path.grammar).title)+'</p>'+
