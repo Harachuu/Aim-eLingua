@@ -11,3 +11,13 @@ function vocabActivities(lesson){const w=lesson.words;return [
  {type:'conversation',title:'Use it in context',prompt:(CONTEXTS[lesson.id]||[])[0]?.[0]||'Select the best phrase.',answer:(CONTEXTS[lesson.id]||[])[0]?.[1]||w[0].fr,options:shuffled([(CONTEXTS[lesson.id]||[])[0]?.[1]||w[0].fr,...chooseDistractors((CONTEXTS[lesson.id]||[])[0]?.[1]||w[0].fr,w.map(v=>v.fr))]),why:'Choose the expression that fits the situation.'}
 ]}
 function activitiesFor(lesson){return lesson.track==='grammar'?GRAMMAR_PRACTICE[lesson.id]:vocabActivities(lesson)}
+// Keep generated vocabulary exercises stable for the entire lesson session.
+const vocabularyActivityCache = new Map();
+function activitiesFor(lesson){
+ if(lesson.track==='grammar')return GRAMMAR_PRACTICE[lesson.id];
+ if(!vocabularyActivityCache.has(lesson.id))vocabularyActivityCache.set(lesson.id,vocabActivities(lesson));
+ return vocabularyActivityCache.get(lesson.id);
+}
+function refreshVocabularyActivities(lesson){
+ if(lesson && lesson.track==='vocabulary')vocabularyActivityCache.set(lesson.id,vocabActivities(lesson));
+}
