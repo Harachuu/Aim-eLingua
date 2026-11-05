@@ -17,6 +17,12 @@ const CONNECTION_PATHS=[
    {speaker:'Luc',fr:'Où est le livre ?',en:'Where is the book?',instruction:'Tell Luc the book is on the table.',options:['Le livre est sur la table.','La livre est sur le table.','Une table est le livre.'],answer:0,reply:'Ah, merci !',replyEn:'Ah, thank you!',why:'Livre is masculine (le), table is feminine (la), and sur means “on.”'},
    {speaker:'Luc',fr:'C’est un stylo ?',en:'Is that a pen?',instruction:'Confirm that it is a pen.',options:['Oui, c’est un stylo.','Oui, c’est une stylo.','Oui, c’est un table.'],answer:0,reply:'Très bien !',replyEn:'Very good!',why:'Stylo is masculine singular, so use un stylo.'},
    {speaker:'Luc',fr:'Et la table ?',en:'And the table?',instruction:'Identify the specific table.',options:['C’est la table.','C’est le table.','C’est une livre.'],answer:0,reply:'Merci !',replyEn:'Thank you!',why:'Use la for a specific feminine singular noun: la table.'}
+  ]},
+ {id:'routines',title:'My Daily Life',description:'Talk to a friend about when you study and work.',vocab:'v10',grammar:'g5',scenario:'Talking about your day',
+  turns:[
+   {speaker:'Amina',fr:'Salut ! Tu étudies le matin ?',en:'Hi! Do you study in the morning?',instruction:'Tell Amina that you study in the evening.',options:['J’étudie le soir.','Tu étudies le soir.','Nous étudions le soir.'],answer:0,reply:'Ah, d’accord !',replyEn:'Ah, okay!',why:'When you describe what you do, use j’étudie. Le soir means in the evening.'},
+   {speaker:'Amina',fr:'Et vous, vous travaillez le matin ?',en:'And do you work in the morning?',instruction:'Answer that you and someone else work in the morning.',options:['Oui, nous travaillons le matin.','Oui, nous travaillez le matin.','Oui, je travaillons le matin.'],answer:0,reply:'Très bien !',replyEn:'Very good!',why:'Nous requires the -ons ending: nous travaillons.'},
+   {speaker:'Amina',fr:'Tu parles français ?',en:'Do you speak French?',instruction:'Say that you speak French.',options:['Oui, je parle français.','Oui, je parles français.','Oui, vous parlez français.'],answer:0,reply:'Super ! À bientôt !',replyEn:'Great! See you soon!',why:'Je takes -e with regular -er verbs: je parle.'}
   ]}
 ];
 function connectionRecord(id){return (progress.connections||{})[id]||{completed:false}}
@@ -29,7 +35,7 @@ function connectionCard(path,index,recommendedId){
  const state=completed?'✓ Completed':ready?'Ready to apply':'In progress';
  const statusClass=completed?'ok':'';
  return '<article class="card lesson-card connection-lesson-card">'+
- '<div class="emoji" aria-hidden="true">'+(path.id==='meeting'?'👋':path.id==='age'?'🙋':'📚')+'</div>'+
+ '<div class="emoji" aria-hidden="true">'+(path.id==='meeting'?'👋':path.id==='age'?'🙋':path.id==='routines'?'☀️':'📚')+'</div>'+
  '<div class="step">PATH '+(index+1)+' · A1</div>'+
  '<h3>'+safe(path.title)+'</h3>'+
  '<p class="muted" style="font-size:.83rem">'+safe(path.description)+'</p>'+
