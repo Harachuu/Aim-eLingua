@@ -81,3 +81,9 @@ html[data-text-size="large"]{font-size:18px}
 .immersion-reminder p{margin:3px 0 0;color:var(--muted)}
 .connection-finished{margin-top:20px}
 @media(max-width:650px){.connection-related,.connection-lesson{flex-wrap:wrap}.connection-lesson>div{flex-basis:60%}.immersion-reminder{flex-direction:column}.connection-card .btn{width:100%}}
+
+/* Keep the Connections library consistent with the lesson grid. */
+.connection-lesson-card{min-height:250px}
+.connection-lesson-card .connection-lesson-pair{font-size:.79rem;margin-top:-5px}
+.connection-lesson-card .connection-recommended{display:inline-block;color:var(--accent);font-size:.68rem;font-weight:800;letter-spacing:.02em;text-transform:none;margin-left:7px}
+.connection-lesson-card .bottom{flex-wrap:wrap}
