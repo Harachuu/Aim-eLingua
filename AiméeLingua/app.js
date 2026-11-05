@@ -61,7 +61,15 @@ function checkActivity(){const a=activitiesFor(getLesson(ui.lesson))[ui.activity
  else if(a.type==='fix')right=ui.activityStage===1&&ui.activitySelection===a.replacement;
  else if(a.type==='match')right=ui.activityStage===a.pairs.length;
  else right=ui.activitySelection===a.answer;
- ui.activityFeedback={right,text:right?a.why:'Not quite. Try another choice or rearrange the tiles and check again.'};render()}
+ const retryFeedback={
+  choose:'That choice is not correct. Select a different answer and check again.',
+  conversation:'That response does not fit the situation. Choose a different response and check again.',
+  build:'The words are not in the correct order yet. Use Undo or Reset to try a different order.',
+  transform:'The sentence has not been transformed correctly. Use Undo or Reset to rearrange the words.',
+  fix:'That replacement does not correct the sentence. Select a different replacement.',
+  match:'Those words do not match. Choose a different pair.'
+ };
+ ui.activityFeedback={right,text:right?a.why:(retryFeedback[a.type]||'Try again.')};render()}
 function pickFixWord(i){const a=activitiesFor(getLesson(ui.lesson))[ui.activityIndex];const token=a.prompt.split(' ')[i]?.replace(/[.!?]$/,'');if(token===a.wrong){ui.activityStage=1;ui.activitySelection=null;ui.activityFeedback=null}else{ui.activityFeedback={right:false,text:'That word is not the grammatical error. Try another word.'}}render()}
 function matchSelect(side,index){const a=activitiesFor(getLesson(ui.lesson))[ui.activityIndex];if(!ui.matchOrder)ui.matchOrder=shuffled(a.pairs.map((_,i)=>i));const pairIndex=side==='fr'?index:ui.matchOrder[index];if(ui.matchedPairs.includes(pairIndex))return;if(ui.activitySelection===null){ui.activitySelection={side,pairIndex};render();return}if(ui.activitySelection.side===side){ui.activitySelection={side,pairIndex};render();return}if(ui.activitySelection.pairIndex===pairIndex){ui.matchedPairs.push(pairIndex);ui.activityStage++;ui.activityFeedback={right:true,text:'Matched! Well done.'}}else ui.activityFeedback={right:false,text:'Those two do not match. Try another pair.'};ui.activitySelection=null;render()}
 function activityHTML(l){const all=activitiesFor(l),a=all[ui.activityIndex];if(!a)return '';const done=ui.activityFeedback?.right;let body='';
