@@ -8,3 +8,16 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
 .french-inline{color:var(--accent);font-weight:800;font-style:italic;text-wrap:pretty}
+
+/* Reading preferences: scale rem-based typography without changing lesson content. */
+html[data-text-size="small"]{font-size:14px}
+html[data-text-size="default"]{font-size:16px}
+html[data-text-size="large"]{font-size:18px}
+.setting-group{margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+.setting-label{display:flex;flex-direction:column;gap:3px;margin-bottom:12px}
+.setting-label>.muted,.setting-checkbox .muted{font-size:.88rem}
+.setting-options{display:flex;gap:10px;flex-wrap:wrap}
+.setting-options .setting-selected{background:var(--accent2);border-color:var(--accent);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.setting-checkbox{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.setting-checkbox input{accent-color:var(--accent);width:20px;height:20px;flex-shrink:0;margin-top:3px}
+.setting-checkbox>span{display:flex;flex-direction:column;gap:4px}
