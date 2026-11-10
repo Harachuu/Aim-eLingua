@@ -87,3 +87,45 @@ html[data-text-size="large"]{font-size:18px}
 .connection-lesson-card .connection-lesson-pair{font-size:.79rem;margin-top:-5px}
 .connection-lesson-card .connection-recommended{display:inline-block;color:var(--accent);font-size:.68rem;font-weight:800;letter-spacing:.02em;text-transform:none;margin-left:7px}
 .connection-lesson-card .bottom{flex-wrap:wrap}
+
+/* Tux & Tabby: airy neutrals, rose accents, and two little peeking cats. */
+html[data-theme="tux-tabby"]{
+ --bg:#faf9f7;--paper:#ffffff;--ink:#302d30;--muted:#6f666b;
+ --accent:#a34e68;--accent2:#f9e8ed;--border:#e9e2e4;--soft:#faf2f2;
+ --shadow:0 12px 34px rgba(42,39,39,.055);
+}
+html[data-theme="tux-tabby"] .hero{
+ background:linear-gradient(116deg,#fff0ef 0%,#fff6f4 61%,#fffbf8 100%);
+ color:#302d30;border:1px solid #f0e1e4;
+}
+html[data-theme="tux-tabby"] .hero p{color:#65585e}
+html[data-theme="tux-tabby"] .hero .eyebrow{color:#a34e68!important}
+html[data-theme="tux-tabby"] .hero-art.kitty-hero-art{
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ min-height:245px;gap:0;overflow:visible;
+}
+html[data-theme="tux-tabby"] .kitty-hero-art img{
+ display:block;width:min(100%,390px);height:auto;max-height:260px;object-fit:contain;
+ filter:drop-shadow(0 9px 14px rgba(50,46,48,.06));
+}
+html[data-theme="tux-tabby"] .kitty-greeting{
+ margin:-10px 0 0!important;text-align:center;color:#715963!important;
+ font-size:.92rem;font-style:italic;font-weight:700;line-height:1.4;
+}
+html[data-theme="tux-tabby"] .kitty-greeting-en{
+ display:block;font-size:.72rem;font-weight:400;font-style:normal;color:#877680;
+}
+html[data-theme="tux-tabby"] .section-head h2::after{
+ content:"  ♡";font-family:system-ui,sans-serif;font-size:.55em;color:#c28a9d;vertical-align:middle;
+}
+html[data-theme="tux-tabby"] .sidebar-note::before{
+ content:"🐾 ";font-size:1rem;
+}
+@media(max-width:760px){
+ html[data-theme="tux-tabby"] .kitty-hero-art img{max-height:210px}
+ html[data-theme="tux-tabby"] .hero-art.kitty-hero-art{min-height:190px}
+}
+@media(max-width:450px){
+ html[data-theme="tux-tabby"] .kitty-hero-art img{max-height:170px}
+ html[data-theme="tux-tabby"] .kitty-hero-art{margin-top:-14px}
+}
