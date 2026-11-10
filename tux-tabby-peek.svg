@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="title desc">
+<title id="title">Tux and Tabby peeking over a café ledge</title><desc id="desc">An illustrated black tuxedo cat with amber eyes and a gray tabby with green eyes peek together over a rose-colored line.</desc>
+<defs><clipPath id="ledge"><rect x="8" y="10" width="504" height="251"/></clipPath></defs>
+<g stroke="#302d30" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<!-- tuxedo cat's ears and round face -->
+<path fill="#252428" d="M82 203 Q75 164 85 128 L91 78 Q94 67 103 77 L136 110 Q160 99 187 110 L219 77 Q228 66 231 84 L239 143 Q250 190 231 218 Z"/>
+<path fill="#37343a" stroke="none" d="M91 88 L112 113 102 119 Z M220 88 L200 113 213 120 Z"/>
+<ellipse cx="133" cy="163" rx="19" ry="22" fill="#d7b66b" stroke-width="3"/><ellipse cx="197" cy="163" rx="19" ry="22" fill="#d7b66b" stroke-width="3"/>
+<ellipse cx="134" cy="162" rx="5" ry="17" fill="#242124" stroke="none"/><ellipse cx="198" cy="162" rx="5" ry="17" fill="#242124" stroke="none"/>
+<ellipse cx="139" cy="155" rx="4" ry="5" fill="#fff" stroke="none"/><ellipse cx="203" cy="155" rx="4" ry="5" fill="#fff" stroke="none"/>
+<path d="M156 183 Q140 180 137 194 Q140 211 161 210 L164 220 170 210 Q192 210 195 194 Q190 180 174 183 Z" fill="#faf9f7" stroke="none"/>
+<path d="M159 190 L173 190 166 198 Z" fill="#bd728a" stroke-width="2"/>
+<path d="M166 198 v8 m0 0 q-8 6-13 0 m13 0 q8 6 13 0" fill="none" stroke-width="2.4"/>
+<path d="M138 194 l-34 -7 m35 16 l-33 2 m88 -11 l34 -7 m-35 16 l34 2" fill="none" stroke-width="2.3"/>
+<!-- tabby cat -->
+<path fill="#a2a09d" d="M274 205 Q264 165 274 127 L279 74 Q281 64 291 74 L323 106 Q346 97 370 106 L407 73 Q417 63 419 80 L424 144 Q431 183 413 214 Z"/>
+<path fill="#d9b3b8" stroke="none" d="M287 87 L308 114 293 119 Z M410 87 L388 114 402 118 Z"/>
+<!-- tabby markings -->
+<path d="M329 116 l12 24 11 -24 m-37 -5 l-11 20 m65 -21 l11 20 m-101 17 l22 14 m118 -14 l-21 14" fill="none" stroke="#676664" stroke-width="9"/>
+<path fill="#faf9f7" stroke="none" d="M318 184 Q313 180 296 186 Q299 211 328 212 L345 226 363 211 Q393 210 398 186 Q376 180 370 184 Q348 191 318 184 Z"/>
+<ellipse cx="315" cy="164" rx="19" ry="21" fill="#99a579" stroke-width="3"/><ellipse cx="381" cy="164" rx="19" ry="21" fill="#99a579" stroke-width="3"/>
+<ellipse cx="317" cy="164" rx="5" ry="15" fill="#2b2a29" stroke="none"/><ellipse cx="383" cy="164" rx="5" ry="15" fill="#2b2a29" stroke="none"/>
+<ellipse cx="322" cy="157" rx="4" ry="5" fill="white" stroke="none"/><ellipse cx="388" cy="157" rx="4" ry="5" fill="white" stroke="none"/>
+<path d="M338 192 L356 192 347 201 Z" fill="#d58b95" stroke-width="2"/>
+<path d="M347 201 v7 m0 0 q-8 6-13 0 m13 0 q8 6 13 0 M320 195 l-28 -7 m29 15 l-29 2 m84 -10 l29 -7 m-28 15 l30 2" fill="none" stroke-width="2.4"/>
+<!-- paws and ledge, visually in front -->
+<path d="M19 254 Q190 254 266 254 M445 254 L501 254" fill="none" stroke="#302d30" stroke-width="5"/>
+<path d="M108 243 q-4 -22 14 -24 q22 0 23 23 q0 13 -18 13 q-20 0 -19 -12 Z M187 244 q-2 -24 17 -24 q20 0 21 22 q1 14 -17 14 q-21 1 -21 -12 Z" fill="#252428"/>
+<path d="M304 242 q-1 -24 17 -24 q21 0 21 24 q0 15 -19 15 q-18 0 -19 -15 Z M372 242 q-3 -24 17 -24 q21 0 22 25 q0 13 -19 13 q-20 0 -20 -14 Z" fill="#a2a09d"/>
+<path d="M125 239 v-8 m80 8 v-8 M321 239 v-8 M391 239 v-8" stroke-width="2.5" fill="none"/>
+</g>
+<!-- accent doodles -->
+<path d="M254 73 q-10 -12 -18 -2 q-8 15 18 30 q27 -15 18 -30 q-9 -10 -18 2" fill="#e9b5bf"/>
+<g fill="#bd728a"><circle cx="464" cy="116" r="7"/><circle cx="452" cy="127" r="5"/><circle cx="476" cy="127" r="5"/><circle cx="456" cy="141" r="5"/><circle cx="472" cy="141" r="5"/><ellipse cx="464" cy="138" rx="10" ry="7"/></g>
+</svg>
